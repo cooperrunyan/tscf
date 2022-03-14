@@ -1,0 +1,25 @@
+{
+  "name": "tscf",
+  "version": "0.0.4",
+  "description": "",
+  "main": "bin/index.js",
+  "type": "module",
+  "bin": {
+    "tscf": "bin/index.js"
+  },
+  "preferGlobal": true,
+  "scripts": {
+    "start": "./bin/index.js"
+  },
+  "keywords": [],
+  "author": "Cooper Runyan",
+  "license": "WTF",
+  "dependencies": {
+    "commander": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/commander": "^2.12.2",
+    "@types/node": "^17.0.21",
+    "typescript": "^4.7.0-dev.20220313"
+  }
+}

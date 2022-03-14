@@ -17,7 +17,9 @@ program
 
       if (args.log) void process.stdout.write(file);
 
-      const dir = path.resolve('.', args.folder ? args.folder + '/' : '' + 'tsconfig.json');
+      const thereIsAFile = fs.existsSync(path.resolve('.', args.folder ? args.folder + '/' : '' + 'tsconfig.json'));
+
+      const dir = path.resolve('.', (args.folder ? args.folder + '/' : '') + (thereIsAFile ? 'new' : '') + 'tsconfig.json');
 
       fs.writeFileSync(dir, file);
       void console.log('Successfully wrote tsconfig.json');

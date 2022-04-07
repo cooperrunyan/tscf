@@ -3,29 +3,39 @@
 import { Command } from 'commander';
 import fs from 'fs';
 import path from 'path';
-import normal from './asset.js';
+import * as assets from './asset.js';
+import { ensureDirectory } from 'ensure-directory';
 
 const program = new Command('tscf');
 
 program
+  .arguments('<type> [name]')
   .option('-l,--log')
-  .option('-f,--folder <folder>')
   .description('Writes a tsconfig file')
-  .action((args: Record<string, any>) => {
+  .action(async (type: Type, name: string, args: Record<string, any>) => {
     try {
-      const file = normal();
+      const file = select(type, assets);
 
       if (args.log) void process.stdout.write(file);
 
-      const thereIsAFile = fs.existsSync(path.resolve('.', args.folder ? args.folder + '/' : '' + 'tsconfig.json'));
+      await ensureDirectory(path.resolve(name));
 
-      const dir = path.resolve('.', (args.folder ? args.folder + '/' : '') + (thereIsAFile ? 'new' : '') + 'tsconfig.json');
+      const thereIsAFile = fs.existsSync(path.resolve(name ? name : '.', 'tsconfig.json'));
+
+      const dir = path.resolve(name ? name : '.', (thereIsAFile ? 'new' : '') + 'tsconfig.json');
 
       fs.writeFileSync(dir, file);
-      void console.log('Successfully wrote tsconfig.json');
+      return void console.log(`\n  Successfully wrote ${thereIsAFile ? 'new' : ''}tsconfig.json\n`);
     } catch (err: any) {
       console.log(err.message);
+      return;
     }
   });
 
 program.parse(process.argv);
+
+type Type = 'react' | 'next' | 'browser' | 'node';
+function select(type: Type, all: typeof assets) {
+  if (all[type]) return all[type]();
+  return all.fallback();
+}

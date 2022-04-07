@@ -9,7 +9,7 @@
     },
 
     "allowJs": true, // Allow the usage of javascript files
-    "allowSyntheticDefaultImports": true, // Import a default even when there isn't one
+    "allowSyntheticDefaultImports": true, // Import a default CommonJS export as an ES6 import
     "allowUnreachableCode": false, // Throw an error if code can never be reached
     "alwaysStrict": true, // Always write "use strict" in javascript files
     "allowUmdGlobalAccess": true, // Allow using UMD globals without needing to specifically import them
@@ -41,7 +41,7 @@
     "isolatedModules": true, // Make sure each file has an "import" or "export"
     "incremental": false, // Writes a tsbuildinfo file for faster development
     "inlineSourceMap": false, // Write source maps within JS files
-    "inlineSources": false, // Write source code withing JS map files
+    "inlineSources": false, // Write source code within JS map files
     "jsx": "preserve", // Determines outputted React function component syntax
     "jsxFactory": "React.createElement", // What method is called to create an element
     "jsxFragmentFactory": "React.Fragment", // What method is called to create a fragment
